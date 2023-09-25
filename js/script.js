@@ -1,3 +1,5 @@
+'use strict'
+
 const numberOfFilms = +prompt("How many films have ou already seen?", "");
 
 let personalMovieDB = {
@@ -8,12 +10,30 @@ let personalMovieDB = {
     privat: false
 };
 
-const firstMovieName = prompt("One of the last movies you watched?", "");
-const rateFirst = prompt("How would you rate it?", "");
-const secondMovieName = prompt("One of the last movies you watched?", "");
-const rateSecond = prompt("How would you rate it?", "");
+let movieName;
+let movieRate;
 
-personalMovieDB.movies[firstMovieName] = rateFirst;
-personalMovieDB.movies[secondMovieName] = rateSecond;
+for (let i = 0; i < 2; i++) {
+    movieName = prompt("One of the last movies you watched?", "");
+    movieRate = prompt("How would you rate it?", "");
+
+    if (movieName == null || movieRate == null ||
+        movieName == "" || movieRate == "" || 
+        movieName.length > 50) {
+        i--;
+    } else {
+        personalMovieDB.movies[movieName] = movieRate;
+    }
+}
+
+if (personalMovieDB.count < 10) {
+    alert("You have watched not enought movies.");
+} else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
+    alert("You are a good viewer.");
+} else if (personalMovieDB.count >= 30) {
+    alert("You are a movie buff");
+} else {
+    alert("Error occured.")
+}
 
 console.log(personalMovieDB);
