@@ -17,8 +17,8 @@ let personalMovieDB = {
 			const movieName = prompt("One of the last movies you watched?", ""),
 				movieRate = prompt("How would you rate it?", "");
         
-			if (movieName == null || movieRate == null ||
-                movieName == "" || movieRate == "" || 
+			if (movieName === null || movieRate === null ||
+                movieName === "" || movieRate === "" || 
                 movieName.length > 50) {
 				i--;
 			} else {
@@ -44,7 +44,23 @@ let personalMovieDB = {
     },
     writeYourGenres: function() {
         for (let i = 0; i <= 2; i++) {
-            personalMovieDB.genres[i] = prompt(`Your favourite genre ${i + 1}`);
+            const genre = prompt(`Your favourite genre ${i + 1}`, "");
+
+            if (genre == null || genre === "") {
+                i--;
+            } else {
+                personalMovieDB.genres[i] = genre;
+            }
+        }
+        personalMovieDB.genres.forEach((genre, i) => {
+            alert(`Your favourite genre #${i + 1} is ${genre}`);
+        });
+    },
+    toggleVisibleMyDB: function() {
+        if (!personalMovieDB.privat) {
+            personalMovieDB.privat = true;
+        } else {
+            personalMovieDB.privat = false;
         }
     }
 };
@@ -52,5 +68,10 @@ let personalMovieDB = {
 personalMovieDB.start();
 personalMovieDB.rememberMyFilms();
 personalMovieDB.detectPersonalLevel();
+
+// personalMovieDB.toggleVisibleMyDB(); // switching privat mode
+
 personalMovieDB.showMyDB(personalMovieDB.privat);
 personalMovieDB.writeYourGenres();
+
+
